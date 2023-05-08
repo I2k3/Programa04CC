@@ -9,24 +9,16 @@ package org.uv.programa04;
  * @author Itzel Rios
  */
 public class Empleado {
-    private long clave;
+    private int clave;
     private String nombre;
     private String direccion;
     private String telefono;
-    public Empleado(long clave, String nombre, String direccion, String telefono){
-        this.setClave(clave);
-        this.setNombre(nombre);
-        this.setDireccion(direccion);
-        this.setTelefono(telefono);
-    }
-    public Empleado(){
-        
-    }
-    public long getClave() {
+
+    public int getClave() {
         return clave;
     }
 
-    public void setClave(long clave) {
+    public void setClave(int clave) {
         this.clave = clave;
     }
 
@@ -53,6 +45,5 @@ public class Empleado {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    
-    
 }
+    

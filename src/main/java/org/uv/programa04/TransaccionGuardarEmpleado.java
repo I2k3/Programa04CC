@@ -12,28 +12,37 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Itzel Rios
+ * @author Itzel
  */
-public class TransaccionGuardarEmpleado extends TransaccionDB<Empleado>{
-    public TransaccionGuardarEmpleado(Empleado e){
+public class TransaccionGuardarEmpleado extends TransaccionDB<Empleado> {
+
+    public TransaccionGuardarEmpleado(Empleado e) {
         super(e);
     }
+
     @Override
-            public boolean execute(Connection con){
-                try{
-                String sql="insert into empleado(clave, nombre, direccion, telefono)"+
-                " values (?, ?, ?, ?);";
-                PreparedStatement pst=con.prepareStatement(sql);
-                pst.setLong(1, p.getClave());
-                pst.setString(2, p.getNombre());
-                pst.setString(3, p.getDireccion());
-                pst.setString(4, p.getTelefono());
-                pst.execute();
-                return true;
-                }catch(SQLException ex){
-                    Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, "No se realizo");
-                    return false;
+    public boolean execute(Connection con) {
+        PreparedStatement pst = null;
+        try {
+            String sql = "insert into empleado(clave, nombre, direccion, telefono) values (?, ?, ?, ?)";
+            pst = con.prepareStatement(sql);
+            pst.setLong(1, p.getClave());
+            pst.setString(2, p.getNombre());
+            pst.setString(3, p.getDireccion());
+            pst.setString(4, p.getTelefono());
+            pst.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, "No se realizo");
+            return false;
+        } finally {
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TransaccionGuardarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-    
+        }
+    }
 }
